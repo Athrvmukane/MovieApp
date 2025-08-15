@@ -7,23 +7,16 @@ import { getTopRatedMovies, setCurrentPage } from '../redux/slices/moviesSlice';
 
 function TopRatedPage() {
   const dispatch = useDispatch();
-  // Select data from the Redux store's 'movies' slice.
-  // The 'topRated' movies array, 'loading' status, 'error' message,
-  // 'currentPage', and 'totalPages' are now managed by Redux.
+
   const { topRated, loading, error, currentPage, totalPages } = useSelector((state) => state.movies);
 
-  // useEffect hook to dispatch the action to fetch top-rated movies.
-  // This effect runs when the component mounts and whenever 'currentPage' changes.
+
   useEffect(() => {
-    // Dispatch the 'getTopRatedMovies' thunk. This thunk is responsible
-    // for making the API call, handling loading/error states, and updating
-    // the Redux store with the fetched data.
+
     dispatch(getTopRatedMovies(currentPage));
   }, [dispatch, currentPage]); // Dependencies: 'dispatch' (stable) and 'currentPage' (from Redux state)
 
-  // Handler for pagination page changes.
-  // This dispatches the 'setCurrentPage' action to update the 'currentPage'
-  // in the Redux store, which in turn triggers the useEffect above to refetch data.
+
   const handlePageChange = (page) => {
     dispatch(setCurrentPage(page));
   };

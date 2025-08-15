@@ -7,26 +7,19 @@ import { searchMovies, setCurrentPage, API_KEY, BASE_URL } from '../redux/slices
 
 function SearchedMoviePage() {
   const dispatch = useDispatch();
-  // Get the current search query directly from the Redux store.
-  // This is the single source of truth for the search term across the app.
+  
   const currentSearchTerm = useSelector((state) => state.search.query);
   
-  // Select search results, loading, error, currentPage, and totalPages from the Redux store's 'movies' slice.
-  // These states are now managed globally by Redux, not locally by useState.
+  
   const { searchResults, loading, error, currentPage, totalPages } = useSelector((state) => state.movies);
 
-  // Effect to dispatch searchMovies thunk whenever the search term or current page changes.
-  // This ensures that when a new search starts or pagination changes, the API call is made.
+  
   useEffect(() => {
-    // Dispatch the 'searchMovies' thunk. This thunk handles the API call,
-    // manages loading/error states, and updates the Redux store with results.
-    // The thunk itself is designed to handle cases where currentSearchTerm might be empty.
+    // Dispatch the 'searchMovies' thunk. This thunk handles the API call
     dispatch(searchMovies(currentSearchTerm, currentPage));
   }, [currentSearchTerm, currentPage, dispatch]); // Dependencies: 'currentSearchTerm' (from Redux) and 'currentPage' (from Redux state)
 
-  // Handler for pagination page changes.
-  // This dispatches the 'setCurrentPage' action to update the 'currentPage'
-  // in the Redux store, which in turn triggers the useEffect above to refetch data.
+  
   const handlePageChange = (page) => {
     dispatch(setCurrentPage(page));
   };

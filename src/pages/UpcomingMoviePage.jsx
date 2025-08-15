@@ -16,14 +16,12 @@ function UpcomingMoviePage() {
   // This effect runs when the component mounts and whenever 'currentPage' changes.
   useEffect(() => {
     // Dispatch the 'getUpcomingMovies' thunk. This thunk is responsible
-    // for making the API call, handling loading/error states, and updating
-    // the Redux store with the fetched data.
+
     dispatch(getUpcomingMovies(currentPage));
   }, [dispatch, currentPage]); // Dependencies: 'dispatch' (stable) and 'currentPage' (from Redux state)
 
   // Handler for pagination page changes.
-  // This dispatches the 'setCurrentPage' action to update the 'currentPage'
-  // in the Redux store, which in turn triggers the useEffect above to refetch data.
+
   const handlePageChange = (page) => {
     dispatch(setCurrentPage(page));
   };
